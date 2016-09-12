@@ -1,5 +1,8 @@
 $(document).ready(function(){
-
+  'use strict';
+  
+  var link,url,name;
+  newSearch();
   window.onload = googleClient;
 
   $('#searcher').on('mousedown', function(e){
@@ -39,22 +42,40 @@ $(document).ready(function(){
     $('input[type=text], textarea').val('');
     $('#search-results').html('');
     $.each(x.items, function(z,y){
-      link = y.id.videoId;
-      url = y.snippet.thumbnails.high.url;
-      name=y.snippet.title;
-      $('#search-results').append('<li class="list"><a href=https://www.youtube.com/watch?v='+link+
-        ' target="_blank"><img src='+url+
-        '></a></li>');
-      $('#search-results').append('<p class="inner"><a href=https://www.youtube.com/watch?v='+link+
-        ' target="_blank">'+name+'</a></p>');
+       link = y.id.videoId;
+       url = y.snippet.thumbnails.high.url;
+       name=y.snippet.title;
+      $('#search-results').append('<a href=https://www.youtube.com/watch?v='+link+
+        ' target="_blank"><img src='+url+'></a><div><p class="titles inner"><a href="http://www.youtubeinmp3.com/download/?video='+'https://www.youtube.com/watch?v='+link+'" target="_blank">'+name+'</a></p></div>');
+      //$('#titles').append('<p class="inner"><a href="#">'+name+'</a></p>');
+
+    });
+  }
+  'http://www.youtubeinmp3.com/download/?video='+'https://www.youtube.com/watch?v='+link+''
+
+    $('body').on('click', '.titles', function(){
+      show($(this).text());
     });
 
+  function show(track){
+    $.ajax({
+      url: 'https://kashyap32-youtubetomp3-v1.p.mashape.com/', // The URL to the API. You can get this in the API page of the API you intend to consume
+      type: 'GET', // The HTTP Method, can be GET POST PUT DELETE etc
+      data: "'"+track+"'", // Additional parameters here
+      dataType: 'text',
+      success: function(data) { $('body').append('<div><p class="titles inner"><a href="'+data+'"</a></p></div>');},
+      error: function(err) {console.log(err); },
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader("X-Mashape-Authorization", 'NiAnfW53c4mshBu0PFGedd1RvMN1p1jp00Bjsn2LImX1wNdeJM'); // Enter here your Mashape key
+      }
+    });
   }
 
   function newSearch(){
     $('#search-results').html('');
     $("input[type=text], textarea").val("");
   }
-
+//href=https://www.youtube.com/watch?v='+link+' target="_blank"
+//<div><p class="titles inner"><a href="#">'+name+'</a></p></div>
 
 });

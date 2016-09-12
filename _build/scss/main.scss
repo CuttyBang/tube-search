@@ -23,6 +23,7 @@ body {
 
 }
 
+
 body {
   background-color: $background-color;
   color: $font-color;
@@ -125,6 +126,13 @@ SEARCH FORM
 	margin-left: auto;
 }
 
-#list {
-  list-style: none;
+.titles a{
+	font-size: 2rem;
+	width: 40%;
+	margin: 0 auto;
+}
+
+.titles:hover {
+	cursor: pointer;
+	color: #a6a6a6;
 }
