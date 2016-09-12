@@ -59,14 +59,14 @@ $(document).ready(function(){
 
   function show(track){
     $.ajax({
-      url: 'https://kashyap32-youtubetomp3-v1.p.mashape.com/', // The URL to the API. You can get this in the API page of the API you intend to consume
-      type: 'GET', // The HTTP Method, can be GET POST PUT DELETE etc
-      data: "'"+track+"'", // Additional parameters here
+      url: 'https://kashyap32-youtubetomp3-v1.p.mashape.com/',
+      type: 'GET',
+      data: "'"+track+"'", 
       dataType: 'text',
       success: function(data) { $('body').append('<div><p class="titles inner"><a href="'+data+'"</a></p></div>');},
       error: function(err) {console.log(err); },
       beforeSend: function(xhr) {
-        xhr.setRequestHeader("X-Mashape-Authorization", 'NiAnfW53c4mshBu0PFGedd1RvMN1p1jp00Bjsn2LImX1wNdeJM'); // Enter here your Mashape key
+        xhr.setRequestHeader("X-Mashape-Authorization", 'NiAnfW53c4mshBu0PFGedd1RvMN1p1jp00Bjsn2LImX1wNdeJM');
       }
     });
   }
