@@ -139,4 +139,9 @@ SEARCH FORM
 .titles:hover {
 	cursor: pointer;
 	color: #a6a6a6;
+	text-decoration: none;
+}
+
+.titles:active{
+	color: #ddff54;
 }
