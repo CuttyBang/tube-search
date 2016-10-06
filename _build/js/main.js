@@ -2,24 +2,26 @@ $(document).ready(function(){
   'use strict';
 
   var link,url,name;
-  newSearch();
+  clearInputs();
   window.onload = googleClient;
 
-  $('#searcher').on('mousedown', function(e){
-    e.preventDefault();
+  $('#searcher').on('mousedown', function(){
     getResults();
   });
-
-  $(document).keydown(function(x){
-    if(x.keycode===13){
-      getResults();
+  $(document).keypress(function(e){
+    if(e.which === 13){
+      if($('input[type=text]').val() === ''){
+        $('#search-results').append("<h2>Wait! I need an artist to search for!</h2>")
+      }
+      else{
+        getResults();
+      }
     }
   });
 
   function googleClient(){
     gapi.client.setApiKey('AIzaSyAArhYbIkYyTY5rYZBhlD3SWVHwgaHHCN4');
     gapi.client.load('youtube', 'v3', function(){
-      console.log('ready');
     });
   }
 
@@ -38,30 +40,32 @@ $(document).ready(function(){
       });
   }
 
-  function showResults(x){
+  function clearInputs(){
     $('input[type=text], textarea').val('');
     $('#search-results').html('');
+  }
+
+  function showResults(x){
+    clearInputs();
+    console.log(x.items);
+    if(x.items.length === 0){
+      $('#search-results').append("<h2>Sorry, I couldn't find any acapellas for that search</h2>");
+    }
     $.each(x.items, function(z,y){
        link = y.id.videoId;
        url = y.snippet.thumbnails.high.url;
        name=y.snippet.title;
       $('#search-results').append('<a href=https://www.youtube.com/watch?v='+link+
         ' target="_blank"><img src='+url+'></a><div><p class="titles inner"><a href="http://www.youtubeinmp3.com/download/?video='+'https://www.youtube.com/watch?v='+link+'" target="_blank">'+name+'</a></p></div>');
-      //$('#titles').append('<p class="inner"><a href="#">'+name+'</a></p>');
-
     });
   }
-  'http://www.youtubeinmp3.com/download/?video='+'https://www.youtube.com/watch?v='+link+''
-
-    $('body').on('click', '.titles', function(){
-      show($(this).text());
-    });
+  //'http://www.youtubeinmp3.com/download/?video='+'https://www.youtube.com/watch?v='+link+''
 
   function show(track){
     $.ajax({
       url: 'https://kashyap32-youtubetomp3-v1.p.mashape.com/',
       type: 'GET',
-      data: "'"+track+"'", 
+      data: "'"+track+"'",
       dataType: 'text',
       success: function(data) { $('body').append('<div><p class="titles inner"><a href="'+data+'"</a></p></div>');},
       error: function(err) {console.log(err); },
@@ -71,10 +75,7 @@ $(document).ready(function(){
     });
   }
 
-  function newSearch(){
-    $('#search-results').html('');
-    $("input[type=text], textarea").val("");
-  }
+
 //href=https://www.youtube.com/watch?v='+link+' target="_blank"
 //<div><p class="titles inner"><a href="#">'+name+'</a></p></div>
 
