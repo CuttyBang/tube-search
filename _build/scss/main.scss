@@ -129,10 +129,15 @@ SEARCH FORM
 .titles a{
 	font-size: 2rem;
 	width: 40%;
+	color: #a6a6a6;
 	margin: 0 auto;
+	text-decoration: none;
 }
 
-.titles:hover {
+.titles a:hover {
 	cursor: pointer;
-	color: #a6a6a6;
+}
+
+.titles a:active{
+	color: #ddff54;
 }

@@ -17,6 +17,7 @@ $(document).ready(function(){
   });
 
   function googleClient(){
+    //init API
     gapi.client.setApiKey('AIzaSyAArhYbIkYyTY5rYZBhlD3SWVHwgaHHCN4');
     gapi.client.load('youtube', 'v3', function(){
       console.log('ready');
@@ -24,6 +25,7 @@ $(document).ready(function(){
   }
 
   function getResults(){
+    //prepare request
     var query = $('input[type=text]').val();
     var search = gapi.client.youtube.search.list({
         part:'snippet',
@@ -32,6 +34,7 @@ $(document).ready(function(){
         maxResults: 50
         //order: 'viewCount'
       });
+      //execute request
       search.execute(function(get){
         var results = get.result;
         showResults(results);
@@ -39,6 +42,7 @@ $(document).ready(function(){
   }
 
   function showResults(x){
+    //show results
     $('input[type=text], textarea').val('');
     $('#search-results').html('');
     $.each(x.items, function(z,y){
@@ -59,7 +63,7 @@ $(document).ready(function(){
 
   function show(track){
     $.ajax({
-      url: 'https://kashyap32-youtubetomp3-v1.p.mashape.com/', 
+      url: 'https://kashyap32-youtubetomp3-v1.p.mashape.com/',
       type: 'GET',
       data:track,
       dataType: 'text',
