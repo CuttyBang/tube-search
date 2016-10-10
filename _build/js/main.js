@@ -19,6 +19,11 @@ $(document).ready(function(){
     }
   });
 
+  function clearInputs(){
+    $('input[type=text], textarea').val('');
+    $('#search-results').html('');
+  }
+  
   function googleClient(){
     gapi.client.setApiKey('AIzaSyAArhYbIkYyTY5rYZBhlD3SWVHwgaHHCN4');
     gapi.client.load('youtube', 'v3', function(){
@@ -26,6 +31,7 @@ $(document).ready(function(){
   }
 
   function getResults(){
+    clearInputs();
     var query = $('input[type=text]').val();
     var search = gapi.client.youtube.search.list({
         part:'snippet',
@@ -34,20 +40,18 @@ $(document).ready(function(){
         maxResults: 50
         //order: 'viewCount'
       });
-      search.execute(function(get){
-        var results = get.result;
-        showResults(results);
-      });
-  }
+      if($('input[type=text]').val() === ''){
+        $('#search-results').append("<h2>Hold on!! I need an artist to search for!</h2>");
+      }else{
+        search.execute(function(get){
+          var results = get.result;
+          showResults(results);
+        });
+      }
 
-  function clearInputs(){
-    $('input[type=text], textarea').val('');
-    $('#search-results').html('');
   }
 
   function showResults(x){
-    clearInputs();
-    console.log(x.items);
     if(x.items.length === 0){
       $('#search-results').append("<h2>Sorry, I couldn't find any acapellas for that search</h2>");
     }
