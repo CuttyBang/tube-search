@@ -13,7 +13,7 @@ $(document).ready(function(){
       getResults();
     }
   });
-  
+
   $(document).keypress(function(e){
     if(e.which === 13){
       if($('input[type=text]').val() === ''){
