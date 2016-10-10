@@ -46,14 +46,10 @@ $(document).ready(function(){
         maxResults: 50
         //order: 'viewCount'
       });
-      if($('input[type=text]').val() === ''){
-        $('#search-results').append("<h2>Hold on!! I need an artist to search for!</h2>");
-      }else{
-        search.execute(function(get){
-          var results = get.result;
-          showResults(results);
-        });
-      }
+      search.execute(function(get){
+        var results = get.result;
+        showResults(results);
+      });
 
   }
 
