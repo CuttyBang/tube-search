@@ -37,7 +37,6 @@ $(document).ready(function(){
   }
 
   function getResults(){
-    clearInputs();
     var query = $('input[type=text]').val();
     var search = gapi.client.youtube.search.list({
         part:'snippet',
@@ -54,6 +53,7 @@ $(document).ready(function(){
   }
 
   function showResults(x){
+    clearInputs();
     if(x.items.length === 0){
       $('#search-results').append("<h2>Sorry, I couldn't find any acapellas for that search</h2>");
     }
