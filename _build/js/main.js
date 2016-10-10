@@ -6,8 +6,14 @@ $(document).ready(function(){
   window.onload = googleClient;
 
   $('#searcher').on('mousedown', function(){
-    getResults();
+    if($('input[type=text]').val() === ''){
+      $('#search-results').append("<h2>Wait! I need an artist to search for!</h2>")
+    }
+    else{
+      getResults();
+    }
   });
+
   $(document).keypress(function(e){
     if(e.which === 13){
       if($('input[type=text]').val() === ''){
@@ -23,7 +29,7 @@ $(document).ready(function(){
     $('input[type=text], textarea').val('');
     $('#search-results').html('');
   }
-  
+
   function googleClient(){
     gapi.client.setApiKey('AIzaSyAArhYbIkYyTY5rYZBhlD3SWVHwgaHHCN4');
     gapi.client.load('youtube', 'v3', function(){
